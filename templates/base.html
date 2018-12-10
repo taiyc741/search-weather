@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% block head %}
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="icon" href="{{ url_for("static", filename="image/favicon.ico") }}">
+    <script href="{{ url_for("static", filename="js/jquery.js") }}" rel="script"></script>
+    <script href="{{ url_for("static", filename="js/bootstrap.min.js") }}" rel="script"></script>
+    <link href="{{ url_for("static", filename="css/bootstrap.min.css") }}" rel="stylesheet">
+    <link href="{{ url_for("static", filename="css/self-set.css") }}" rel="stylesheet">
+  {% endblock %}
+</head>
+<body style="background-image:linear-gradient(to bottom,rgb(14,105,189),skyblue)">
+  {% block body %}
+    <nav class="navbar navbar-inverse" role="navigation" >
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <img class="navbar-brand" src="{{ url_for("static", filename="image/logo.png") }}" alt="logo">
+          <a class="navbar-brand" href="{{ url_for("index") }}">天气查询</a>
+        </div>
+        <div>
+          <form action="{{ url_for("search") }}"  method="post" class="navbar-form navbar-right" role="search">
+            <div class="form-group">
+              <input type="text" name="city_name" class="form-control" placeholder="请输入您要查询的城市" value="北京">
+            </div>
+            <button type="submit" class="btn btn-default">查询</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    {% block header%}{% endblock %}
+    {% block main %}{% endblock %}
+    {% block footer %}
+    {% endblock %}
+  {% endblock %}
+</body>
+
+</html>

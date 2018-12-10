@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}
+  天气预报
+{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block body %}
+  {{ super() }}
+{% endblock %}
+{% block header %}
+  <header class="text-center"><h2>{{ c["city"] }}</h2></header>
+{% endblock %}
+{% block main%}
+  <main class="text-center">
+    <h5>{{ td["month"] }}月{{ td["day"] }}日 [{{ td["week"] }}]</h5>
+    {% set deafult_img = "image/duoyun.png" %}
+    {% if td["type"] == "晴" %}
+      <img src="static/image/qt.png" alt="天气图标">
+    {% elif td["type"] == "阴" %}
+      <img src="static/image/yin.png">
+    {% elif td["type"] in "大雪小雪中雪" %}
+      <img src="static/image/xt.png" alt="天气图标">
+    {% elif td["type"] in "大雨小雨中雨" %}
+      <img src="static/image/yut.png" alt="天气图标">
+    {% else %}
+      <img src="static/{{ deafult_img }}" alt="天气图标">
+    {% endif %}
+    <h5>{{ td["low"] | replace("低温","") }}~{{ td["high"] | replace("高温", "")}}</h5>
+    <h3>{{ td["type"] }}</h3>
+    <p>{{ td["fx"] }}{{ td["fl"] }}</p>
+    <p>实时温度：{{ td["wendu"] }}℃</p>
+    <p>空气质量:{{ td["quality"] }},指数:{{ td["aqi"] }}</p>
+    <p>{{ td["ganmao"] }}</p>
+    <p>pm25:{{ td["pm25"] }},pm10:{{ td["pm10"] }}</p>
+    <p>湿度:{{ td["shidu"] }}</p>
+  </main>
+{% endblock %}
+{% block footer %}
+  <footer class="container-fluid text-center">
+    <div class="row">
+      {% for d in  five_day %}
+        <section class="col-xs-3 col-sm-3 col-md-2">
+          <p>{{ d["week"] }}</p>
+          <p>{{ d["month"] }}月{{ d["day"] }}日</p>
+{#          <img src="days/xiaoyu.png" alt="">#}
+          {% set deafult_img = "image/duoyun.png" %}
+          {% if d["type"] == "晴" %}
+            <img src="static/image/qt.png" alt="天气图标">
+          {% elif d["type"] == "阴" %}
+            <img src="static/image/yin.png">
+          {% elif d["type"] in "大雪小雪中雪雨夹雪" %}
+            <img src="static/image/xt.png" alt="天气图标">
+          {% elif d["type"] in "大雨小雨中雨" %}
+            <img src="static/image/yut.png" alt="天气图标">
+          {% else %}
+            <img src="static/{{ deafult_img }}" alt="天气图标">
+          {% endif %}
+          <p>{{ d["type"] }}</p>
+          <p>{{ d["low"] | replace("低温","") }}~{{ d["high"] | replace("高温", "") }}</p>
+          <p>{{ d["fx"] }}{{ d["fl"] }}</p>
+{#          <p>{{ d["notice"] }}</p>#}
+          <p>空气指数:{{ d["aqi"] }}</p>
+        </section>
+      {% endfor %}
+     </div>
+  </footer>
+{% endblock %}
